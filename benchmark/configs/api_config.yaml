@@ -1,0 +1,19 @@
+api_config:
+  plain:
+    - "gpt-5.2"
+    - 32
+  imgen:
+    - "gpt_image"
+    - 4
+  shot:
+    - ""
+    - 4
+  imedit:
+    - "gpt_image_edit2"
+    - 4
+  vidgen:
+    - "sora-2"
+    - 4
+  imwebfix:
+    - ""
+    - 1

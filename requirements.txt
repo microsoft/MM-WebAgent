@@ -1,0 +1,8 @@
+beautifulsoup4
+decord
+numpy
+pillow
+playwright
+PyYAML
+requests
+tqdm

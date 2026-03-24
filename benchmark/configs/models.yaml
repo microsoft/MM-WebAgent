@@ -1,0 +1,13 @@
+models:
+  gpt-5.2:
+    backend: repo_gpts
+    model: "gpt-5.2"
+    max_tokens: 15536
+    temperature: 0.2
+    max_workers: 4
+
+  gpt-4o:
+    backend: repo_gpts
+    model: "gpt-4o"
+    max_tokens: 15536
+    temperature: 0.2

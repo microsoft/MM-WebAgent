@@ -1,0 +1,32 @@
+dataset: datasets/evaluation_dataset.jsonl
+
+evaluation:
+  # These flags control which evaluation tasks are created (screenshots will include
+  # embedded images/charts only if enabled).
+  global_eval: true
+  image_eval: true
+  video_eval: true
+  chart_eval: true
+
+reflection:
+  # Chart reflection (subpage/iframe charts).
+  # - local_chart: overwrites embedded chart HTML files
+  # - global_chart: overwrites main.html (parent page CSS/container fixes)
+  enable_local_chart_reflection: true
+  enable_global_chart_reflection: true
+  chart_rounds: 3
+
+  # Image reflection (requires image-edit model config).
+  # - local_image: overwrites image files
+  # - global_image: overwrites main.html (parent page fixes for image containers)
+  enable_local_image_reflection: true
+  enable_global_image_reflection: false
+  image_rounds: 3
+
+  # Global reflection overwrites main.html (layout/style issues).
+  enable_global_reflection: true
+  global_rounds: 3
+
+runtime:
+  # When true, keep snapshots of main.html before/after reflection rounds.
+  keep_html_snapshots: true
