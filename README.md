@@ -2,13 +2,19 @@
 
 <p align="center">
   <a href="https://arxiv.org/abs/2604.15309"><img src="https://img.shields.io/badge/arXiv-2604.15309-b31b1b.svg" alt="arXiv"></a>
+  <a href="https://aka.ms/mm-webagent"><img src="https://img.shields.io/badge/Project%20Page-MM--WebAgent-green.svg" alt="Project Page"></a>
+  <a href="https://huggingface.co/datasets/microsoft/MM-WebGen-Bench"><img src="https://img.shields.io/badge/HuggingFace-MM--WebGen--Bench-yellow.svg" alt="Hugging Face Dataset"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
   <img src="https://img.shields.io/badge/python-3.12-blue.svg" alt="Python">
 </p>
 
 ## Introduction
 
-**MM-WebAgent** is a hierarchical agentic framework for multimodal webpage generation. It coordinates AIGC-based element generation through hierarchical planning and iterative self-reflection, producing coherent and visually consistent webpages. The project also includes **MM-WebGEN-Bench**, a multi-level evaluation benchmark.
+**MM-WebAgent** is a hierarchical agentic framework for multimodal webpage generation. It coordinates AIGC-based element generation through hierarchical planning and iterative self-reflection, producing coherent and visually consistent webpages. The project also includes **MM-WebGEN-Bench**, a multi-level evaluation benchmark for multimodal webpage generation.
+
+- **Project Page:** https://aka.ms/mm-webagent
+- **Dataset on Hugging Face:** https://huggingface.co/datasets/microsoft/MM-WebGen-Bench
+- **Paper:** https://arxiv.org/abs/2604.15309
 
 <p align="center">
   <img src="assets/framework.png" alt="Framework" width="90%">
@@ -151,7 +157,12 @@ JSONL format:
 If you find this work useful, please cite:
 
 ```bibtex
-
+@article{li2026mmwebagent,
+  title={MM-WebAgent: A Hierarchical Multimodal Web Agent for Webpage Generation},
+  author={Yan Li and Zezi Zeng and Yifan Yang and Yuqing Yang and Ning Liao and Weiwei Guo and Lili Qiu and Mingxi Cheng and Qi Dai and Zhendong Wang and Zhengyuan Yang and Xue Yang and Ji Li and Lijuan Wang and Chong Luo},
+  journal={arXiv preprint arXiv:2604.15309},
+  year={2026}
+}
 ```
 
 ---
