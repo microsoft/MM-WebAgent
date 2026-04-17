@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MM-WebAgent: A Hierarchical Multimodal Web Agent for Webpage Generation</title>
+    <meta name="description" content="MM-WebAgent: A Hierarchical Multimodal Web Agent for Webpage Generation.">
+    <meta name="keywords" content="Multimodal Webpage Generation, Agentic Framework, Generative AI (AIGC)">
+    <link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="static/css/style.css?v=20260417b">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#top" class="nav-brand">
+                <span class="brand-text">MM-WebAgent</span>
+            </a>
+            <div class="nav-links">
+                <a class="nav-link" href="#abstract">Abstract</a>
+                <a class="nav-link" href="#method">Method</a>
+                <a class="nav-link" href="#experiments">Experiments</a>
+                <a class="nav-link" href="#cite">Cite</a>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
+                <i class="fa-solid fa-bars"></i>
+                <span>Menu</span>
+            </button>
+        </div>
+        <div class="mobile-nav" id="mobile-nav">
+            <a class="nav-link" href="#abstract">Abstract</a>
+            <a class="nav-link" href="#method">Method</a>
+            <a class="nav-link" href="#experiments">Experiments</a>
+            <a class="nav-link" href="#cite">Cite</a>
+        </div>
+    </nav>
+
+    <header id="top" class="hero">
+        <div class="container">
+            <h1 class="hero-title">
+                <span class="title-logo">MM-WebAgent</span>
+                <span class="title-sub">A Hierarchical Multimodal Web Agent for Webpage Generation</span>
+            </h1>
+
+            <div class="authors">
+                <span class="author">Yan Li<sup>1,*</sup></span>
+                <span class="author">Zezi Zeng<sup>2,*</sup></span>
+                <span class="author">Yifan Yang<sup>4,&dagger;</sup></span>
+                <span class="author">Yuqing Yang<sup>4</sup></span>
+                <span class="author">Ning Liao<sup>1</sup></span>
+                <span class="author">Weiwei Guo<sup>3</sup></span>
+                <span class="author">Lili Qiu<sup>4</sup></span>
+                <span class="author">Mingxi Cheng<sup>4</sup></span>
+                <span class="author">Qi Dai<sup>4</sup></span>
+                <span class="author">Zhendong Wang<sup>4</sup></span>
+                <span class="author">Zhengyuan Yang<sup>4</sup></span>
+                <span class="author">Xue Yang<sup>1,&dagger;</sup></span>
+                <span class="author">Ji Li<sup>4</sup></span>
+                <span class="author">Lijuan Wang<sup>4</sup></span>
+                <span class="author">Chong Luo<sup>4</sup></span>
+            </div>
+            <div class="affiliations">
+                <span><sup>1</sup>Shanghai Jiao Tong University</span>
+                <span><sup>2</sup>Xi'an Jiaotong University</span>
+                <span><sup>3</sup>Tongji University</span>
+                <span><sup>4</sup>Microsoft Corporation</span>
+            </div>
+            <div class="author-notes">
+                <span><sup>*</sup> Equal contribution. This work was done during their internship at Microsoft.</span>
+                <span><sup>&dagger;</sup> Corresponding to: Yifan Yang &lt;yifanyang@microsoft.com&gt;, Xue Yang &lt;yangxue-2019-sjtu@sjtu.edu.cn&gt;.</span>
+            </div>
+            <div class="cta-row">
+                <a class="btn btn-outline" href="https://arxiv.org/abs/2604.15309" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-solid fa-file-lines"></i>
+                    ArXiv
+                </a>
+                <a class="btn btn-outline" href="https://github.com/microsoft/MM-WebAgent" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-github"></i>
+                    Code
+                </a>
+                <a class="btn btn-outline" href="https://huggingface.co/datasets/microsoft//MM-WebGen-Bench" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-solid fa-database"></i>
+                    Dataset
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="abstract" class="section">
+        <div class="container narrow">
+            <h2 class="section-title">Abstract</h2>
+            <p class="abstract-text">
+                The rapid progress of Artificial Intelligence Generated Content (AIGC) tools enables images, videos, and visualizations to be created <em>on demand</em> for webpage design, offering a flexible and increasingly adopted paradigm for modern UI/UX. However, directly integrating such tools into automated webpage generation often leads to style inconsistency and poor global coherence, as elements are generated in isolation. We propose MM-WebAgent, a hierarchical agentic framework for multimodal webpage generation that coordinates AIGC-based element generation through hierarchical planning and iterative self-reflection. MM-WebAgent jointly optimizes global layout, local multimodal content, and their integration, producing coherent and visually consistent webpages. We further introduce MM-WebGEN-Bench and a multi-level evaluation protocol for systematic assessment. Experiments demonstrate that MM-WebAgent outperforms code-generation and agent-based baselines, especially on multimodal element generation and integration.
+            </p>
+        </div>
+    </section>
+
+    <section id="method" class="section section-alt">
+        <div class="container narrow">
+            <h2 class="section-title">Method</h2>
+            <figure class="figure reveal">
+                <img src="static/images/framework.png" alt="An overview of the proposed framework MM-WebAgent">
+                <figcaption>
+                    <strong>An overview of the proposed framework MM-WebAgent.</strong> The framework generates webpages through four key steps: Task planning, hierarchical generation, multi-level evaluation and iterative reflection.
+                </figcaption>
+            </figure>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Hierarchical Planning and Generation</h3>
+                <div class="two-col">
+                    <div class="panel">
+                        <div class="panel-title">Global Layout Planning.</div>
+                        <ul class="bullets">
+                            <li>Define section hierarchy, ordering, and spatial organization.</li>
+                            <li>Specify section content, page-level style attributes, and element layout.</li>
+                            <li>Introduce placeholders for multimodal elements with positions, sizes, and constraints.</li>
+                        </ul>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-title">Local Element Planning.</div>
+                        <ul class="bullets">
+                            <li>Construct a local plan for each multimodal element in the global layout.</li>
+                            <li>Include context information, meta attributes, and the generation tool.</li>
+                            <li>Execute the global layout and local generators, then insert the generated assets into the webpage.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Hierarchical Self Reflection</h3>
+                <div class="reflect-grid">
+                    <div class="reflect-card reflect-local">
+                        <div class="reflect-badge">Local</div>
+                        <h3>Local refine.</h3>
+                        <p>Improve the intrinsic quality of each multimodal element.</p>
+                    </div>
+                    <div class="reflect-card reflect-context">
+                        <div class="reflect-badge">Context</div>
+                        <h3>Context refine.</h3>
+                        <p>Refine surrounding HTML snippets to resolve misalignment, clipping, and spacing issues.</p>
+                    </div>
+                    <div class="reflect-card reflect-global">
+                        <div class="reflect-badge">Global</div>
+                        <h3>Global refine.</h3>
+                        <p>Use HTML code and rendered screenshots to enforce layout and style consistency across sections.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">MM-WebGEN-Bench</h3>
+                <figure class="figure reveal">
+                    <img src="static/images/dataset.png" alt="Overview of MM-WebGEN-Bench">
+                    <figcaption>
+                        <strong>Overview of MM-WebGEN-Bench.</strong> (a) Dataset construction process, including data generation controlled by layout complexity, visual style, semantic intent, and multimodal elements, followed by a filtering pipeline with automatic format validation and manual quality control. (b) Statistical summary of the final evaluation set, consisting of <strong>120</strong> webpages spanning <strong>11</strong> scene categories and <strong>11</strong> visual styles, and featuring diverse multimodal compositions, including <strong>4</strong> types of videos, <strong>8</strong> types of images, and <strong>17</strong> types of charts.
+                    </figcaption>
+                </figure>
+                <div class="bench-stats">
+                    <div class="bs-item"><div class="bs-num">120</div><div class="bs-label">Webpages</div></div>
+                    <div class="bs-item"><div class="bs-num">11</div><div class="bs-label">Scene Categories</div></div>
+                    <div class="bs-item"><div class="bs-num">11</div><div class="bs-label">Visual Styles</div></div>
+                    <div class="bs-item"><div class="bs-num">4</div><div class="bs-label">Video Types</div></div>
+                    <div class="bs-item"><div class="bs-num">8</div><div class="bs-label">Image Types</div></div>
+                    <div class="bs-item"><div class="bs-num">17</div><div class="bs-label">Chart Types</div></div>
+                </div>
+                <div class="eval-levels">
+                    <div class="el-card">
+                        <div class="el-head">Evaluation Dataset.</div>
+                        <ul>
+                            <li>Generate prompts by sampling <em>layout complexity</em>, <em>visual style</em>, <em>multimodal elements</em>, and <em>semantic intent</em>.</li>
+                            <li>Apply automatic format validation and manual inspection to filter implausible layouts and inconsistent styles.</li>
+                        </ul>
+                    </div>
+                    <div class="el-card">
+                        <div class="el-head">Multi-level Evaluation.</div>
+                        <ul>
+                            <li><em>Global level evaluation</em>: layout correctness, style coherence, and aesthetic quality.</li>
+                            <li><em>Local level evaluation</em>: images, videos, and charts.</li>
+                            <li>Missing or incomplete elements implied by the user prompt are treated as critical failures at the local level.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experiments" class="section">
+        <div class="container narrow">
+            <h2 class="section-title">Experiments</h2>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Main Results</h3>
+                <p class="body-text">
+                    <strong>Paradigm Comparison on MM-WebGEN-Bench.</strong> MM-WebAgent achieves the best overall score (<strong>0.75</strong>) and improves both global metrics (<em>layout</em>, <em>style</em>, <em>aesthetics</em>) and local metrics (<em>image</em>, <em>video</em>, <em>chart</em>).
+                </p>
+
+                <div class="table-wrap">
+                    <table class="results-table">
+                        <colgroup>
+                            <col class="method-col">
+                            <col class="metric-col">
+                            <col class="metric-col">
+                            <col class="metric-col">
+                            <col class="metric-col">
+                            <col class="metric-col">
+                            <col class="metric-col">
+                            <col class="metric-col">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="tl">Method</th>
+                                <th colspan="3" class="group-global">Global</th>
+                                <th colspan="3" class="group-local">Local</th>
+                                <th rowspan="2">Average</th>
+                            </tr>
+                            <tr>
+                                <th class="group-global">Layout</th>
+                                <th class="group-global">Style</th>
+                                <th class="group-global">Aesthetics</th>
+                                <th class="group-local">Image</th>
+                                <th class="group-local">Video</th>
+                                <th class="group-local">Chart</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="section-row"><td colspan="8">(I) Code-only One-shot</td></tr>
+                            <tr><td class="tl">Qwen2.5-Coder-7B-Instruct</td><td>0.01</td><td>0.00</td><td>0.78</td><td>0.41</td><td>0.00</td><td>0.24</td><td>0.24</td></tr>
+                            <tr><td class="tl">Qwen2.5-Coder-32B-Instruct</td><td>0.09</td><td>0.03</td><td>0.84</td><td>0.39</td><td>0.02</td><td>0.28</td><td>0.27</td></tr>
+                            <tr><td class="tl">Qwen3-Coder-30B-A3B-Instruct</td><td>0.13</td><td>0.15</td><td>0.57</td><td>0.08</td><td>0.00</td><td>0.25</td><td>0.20</td></tr>
+                            <tr><td class="tl">Qwen2.5-72B-Instruct</td><td>0.10</td><td>0.02</td><td>0.82</td><td>0.40</td><td>0.00</td><td>0.25</td><td>0.27</td></tr>
+                            <tr><td class="tl">Gemini-2.5-Pro</td><td>0.57</td><td>0.24</td><td>0.94</td><td>0.43</td><td>0.00</td><td>0.45</td><td>0.44</td></tr>
+                            <tr><td class="tl">OpenAI-GPT-4o</td><td>0.02</td><td>0.05</td><td>0.48</td><td>0.06</td><td>0.00</td><td>0.02</td><td>0.11</td></tr>
+                            <tr><td class="tl">OpenAI-GPT-5mini</td><td>0.63</td><td>0.40</td><td>0.95</td><td>0.21</td><td>0.00</td><td>0.50</td><td>0.45</td></tr>
+                            <tr><td class="tl">OpenAI-GPT-5</td><td>0.78</td><td>0.40</td><td class="u">0.96</td><td>0.14</td><td>0.02</td><td class="u">0.52</td><td>0.47</td></tr>
+                            <tr><td class="tl">OpenAI-GPT-5.1</td><td>0.73</td><td>0.44</td><td class="u">0.96</td><td>0.05</td><td>0.00</td><td>0.35</td><td>0.42</td></tr>
+
+                            <tr class="section-row"><td colspan="8">(II) Code-only Agents</td></tr>
+                            <tr class="section-row"><td colspan="8">i) Bolt.diy</td></tr>
+                            <tr><td class="tl">Qwen2.5-Coder-7B-Instruct</td><td>0.02</td><td>0.03</td><td>0.77</td><td>0.36</td><td>0.00</td><td>0.23</td><td>0.23</td></tr>
+                            <tr><td class="tl">Qwen2.5-Coder-32B-Instruct</td><td>0.08</td><td>0.02</td><td>0.85</td><td>0.48</td><td>0.02</td><td>0.31</td><td>0.29</td></tr>
+                            <tr><td class="tl">Qwen3-Coder-30B-A3B-Instruct</td><td>0.12</td><td>0.07</td><td>0.71</td><td>0.15</td><td>0.00</td><td>0.32</td><td>0.23</td></tr>
+                            <tr><td class="tl">Qwen2.5-72B-Instruct</td><td>0.07</td><td>0.03</td><td>0.83</td><td>0.31</td><td>0.05</td><td>0.30</td><td>0.26</td></tr>
+                            <tr><td class="tl">Gemini-2.5-Pro</td><td>0.63</td><td>0.24</td><td>0.93</td><td>0.38</td><td>0.00</td><td>0.50</td><td>0.45</td></tr>
+                            <tr><td class="tl">OpenAI-GPT-4o</td><td>0.04</td><td>0.02</td><td>0.85</td><td>0.21</td><td>0.00</td><td>0.12</td><td>0.21</td></tr>
+                            <tr><td class="tl">OpenAI-GPT-5mini</td><td>0.67</td><td>0.36</td><td>0.95</td><td>0.12</td><td>0.00</td><td>0.48</td><td>0.43</td></tr>
+                            <tr><td class="tl">OpenAI-GPT-5</td><td>0.77</td><td>0.43</td><td>0.95</td><td>0.06</td><td>0.00</td><td>0.50</td><td>0.45</td></tr>
+                            <tr><td class="tl">OpenAI-GPT-5.1</td><td>0.74</td><td>0.39</td><td class="u">0.96</td><td>0.30</td><td>0.00</td><td>0.36</td><td>0.46</td></tr>
+
+                            <tr class="section-row"><td colspan="8">ii) OpenHands</td></tr>
+                            <tr><td class="tl">Gemini-2.5-Pro</td><td>0.43</td><td>0.21</td><td>0.93</td><td>0.31</td><td>0.00</td><td>0.47</td><td>0.39</td></tr>
+                            <tr><td class="tl">OpenAI-GPT-4o</td><td>0.03</td><td>0.02</td><td>0.83</td><td>0.11</td><td>0.00</td><td>0.04</td><td>0.17</td></tr>
+                            <tr><td class="tl">OpenAI-GPT-5mini</td><td>0.60</td><td>0.31</td><td>0.94</td><td>0.05</td><td>0.00</td><td>0.47</td><td>0.39</td></tr>
+                            <tr><td class="tl">OpenAI-GPT-5</td><td>0.76</td><td>0.41</td><td>0.95</td><td>0.02</td><td>0.00</td><td>0.49</td><td>0.44</td></tr>
+                            <tr><td class="tl">OpenAI-GPT-5.1</td><td>0.74</td><td>0.39</td><td class="u">0.96</td><td>0.30</td><td>0.00</td><td>0.36</td><td>0.46</td></tr>
+
+                            <tr class="section-row"><td colspan="8">(III) Multimodal Web Agents</td></tr>
+                            <tr class="ours"><td class="tl">Gemini-2.5-Pro</td><td>0.68</td><td>0.35</td><td class="u">0.96</td><td>0.81</td><td>0.57</td><td>0.43</td><td>0.63</td></tr>
+                            <tr class="ours"><td class="tl">OpenAI-GPT-4o</td><td>0.16</td><td>0.10</td><td>0.86</td><td>0.42</td><td>0.29</td><td>0.32</td><td>0.36</td></tr>
+                            <tr class="ours"><td class="tl">OpenAI-GPT-5mini</td><td>0.73</td><td>0.42</td><td>0.95</td><td>0.84</td><td class="u">0.63</td><td>0.50</td><td>0.68</td></tr>
+                            <tr class="ours"><td class="tl">OpenAI-GPT-5</td><td class="b">0.85</td><td class="u">0.53</td><td class="b">0.97</td><td class="u">0.86</td><td>0.52</td><td class="b">0.54</td><td class="u">0.71</td></tr>
+                            <tr class="ours ours-best"><td class="tl"><strong>OpenAI-GPT-5.1</strong></td><td class="u">0.83</td><td class="b">0.54</td><td class="b">0.97</td><td class="b">0.88</td><td class="b">0.75</td><td class="b">0.54</td><td class="b">0.75</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Qualitative Results</h3>
+                <p class="body-text">
+                    MM-WebAgent generates webpages with more coherent layouts, more consistent visual styles, and better-aligned multimodal content than representative baselines.
+                </p>
+                <figure class="figure reveal">
+                    <img src="static/images/comparison_more.png" alt="More rendered webpage examples generated by MM-WebAgent and baseline methods on MM-WebGEN-Bench">
+                    <figcaption>
+                        <strong>More rendered webpage examples generated by MM-WebAgent and baseline methods on MM-WebGEN-Bench.</strong>
+                    </figcaption>
+                </figure>
+                <figure class="figure reveal">
+                    <img src="static/images/reflection.png" alt="Visualization of the hierarchical reflection process">
+                    <figcaption>
+                        <strong>Visualization of the hierarchical reflection process.</strong> Examples include global layout refinement, context refinement (<em>first row</em>), local element refinement (<em>second row</em>), and local-to-global correction (<em>third row</em>).
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <section id="cite" class="section">
+        <div class="container narrow">
+            <h2 class="section-title">Cite</h2>
+            <p class="body-text">
+                If you find this work useful, please cite:
+            </p>
+            <div class="bibtex-wrap">
+                <button class="copy-btn" id="copy-bib" type="button">
+                    <i class="fa-regular fa-copy"></i>
+                    Copy BibTeX
+                </button>
+                <pre class="bibtex" id="bib-content">@misc{li2026mmwebagent,
+  title={MM-WebAgent: A Hierarchical Multimodal Web Agent for Webpage Generation},
+  author={Yan Li and Zezi Zeng and Yifan Yang and Yuqing Yang and
+          Ning Liao and Weiwei Guo and Lili Qiu and Mingxi Cheng and
+          Qi Dai and Zhendong Wang and Zhengyuan Yang and Xue Yang and
+          Ji Li and Lijuan Wang and Chong Luo},
+  year={2026},
+  eprint={2604.15309},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  doi={10.48550/arXiv.2604.15309},
+  url={https://arxiv.org/abs/2604.15309}
+}</pre>
+            </div>
+        </div>
+    </section>
+
+    <script src="static/js/main.js?v=20260417b"></script>
+</body>
+</html>
