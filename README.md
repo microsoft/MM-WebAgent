@@ -10,15 +10,28 @@
 
 ## Introduction
 
-**MM-WebAgent** is a hierarchical agentic framework for multimodal webpage generation. It coordinates AIGC-based element generation through hierarchical planning and iterative self-reflection, producing coherent and visually consistent webpages. The project also includes **MM-WebGEN-Bench**, a multi-level evaluation benchmark for multimodal webpage generation.
-
-- **Project Page:** https://aka.ms/mm-webagent
-- **Dataset on Hugging Face:** https://huggingface.co/datasets/microsoft/MM-WebGen-Bench
-- **Paper:** https://arxiv.org/abs/2604.15309
+**MM-WebAgent** is a hierarchical agentic framework for **multimodal webpage generation**. Instead of treating webpage creation as pure HTML/CSS coding, it turns the task into an **automated design process** that can natively coordinate AIGC tools for generating images, videos, charts, and webpage layouts.
 
 <p align="center">
   <img src="assets/framework.png" alt="Framework" width="90%">
 </p>
+
+Compared with traditional **code-based agents**, MM-WebAgent produces webpages with **better multimodal integration, stronger style consistency, and more visually harmonious designs**. Rather than generating code and assets in isolation, it explicitly models webpage creation as a structured process: first planning the page globally, then generating local multimodal elements under contextual constraints, and finally refining the full page through **hierarchical multi-level reflection**.
+
+This hierarchical design is the key difference. MM-WebAgent jointly improves:
+- **global layout coherence** at the page level,
+- **local asset quality** for images, videos, and charts,
+- and **cross-element consistency** between generated content and surrounding HTML/CSS.
+
+As a result, the framework can make substantially better use of AIGC tools than standard code-centric agents, leading to webpages that are not only functional, but also **more polished, more coherent, and more aesthetically pleasing**.
+
+To support research in this direction, we also introduce **MM-WebGEN-Bench**, a multi-level benchmark for evaluating multimodal webpage generation across diverse scenes, styles, and element compositions.
+
+<p align="center">
+<img alt="image" src="https://github.com/user-attachments/assets/eaccb4dd-dbb2-4436-b58c-57ecd981f85b" width="65%"/>
+</p>
+
+
 
 ## Installation
 
@@ -149,6 +162,7 @@ JSONL format:
 ```json
 {"file_id": "001", "input": "Create a modern landing page for a robotics startup..."}
 ```
+
 
 ---
 
