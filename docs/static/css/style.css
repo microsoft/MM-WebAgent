@@ -850,8 +850,8 @@ a:hover { color: var(--brand-2); }
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
-.results-table td.b { font-weight: 700; color: var(--brand); }
-.results-table td.u { font-weight: 600; text-decoration: underline; text-decoration-color: rgba(57,89,255,0.4); text-underline-offset: 3px; }
+.results-table td.b { font-weight: 700; color: #000; }
+.results-table td.u { text-decoration: underline; text-underline-offset: 3px; }
 .results-table tr.ours { background: linear-gradient(90deg, rgba(57,89,255,0.06), rgba(57,89,255,0.02)); }
 .results-table tr.ours-best { background: linear-gradient(90deg, rgba(57,89,255,0.14), rgba(255,122,198,0.05)); }
 .results-table tr.ours-best td { color: var(--fg); }
